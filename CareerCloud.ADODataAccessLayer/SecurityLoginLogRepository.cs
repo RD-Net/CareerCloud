@@ -10,22 +10,25 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class SecurityLoginsRoleRepository :BaseADO, IDataRepository<SecurityLoginsRolePoco>
+    class SecurityLoginLogRepository : BaseADO, IDataRepository<SecurityLoginLogPoco>
     {
-        public void Add(params SecurityLoginsRolePoco[] items)
+        public void Add(params SecurityLoginLogPoco[] items)
         {
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = connection;
-                foreach (SecurityLoginsRolePoco poco in items)
+                foreach(SecurityLoginLogPoco poco in items)
                 {
-                    cmd.CommandText = @"insert into Security_Logins_Log(Id, Login, Role)
-                    values (@Id, @Login, @Source_IP,@Logon_Date,@Is_Successful)";
+                    cmd.CommandText = @"insert into Security_Logins_Log(Id, Login, Source_IP,
+                    Logon_Date,Is_Successful)
+                    values (@Id, @Login, @Source_IP,@Logon_Date,@Is_Succesful)";
                     cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
-                    cmd.Parameters.AddWithValue("@Role", poco.Role);
+                    cmd.Parameters.AddWithValue("@Source", poco.SourceIP);
+                    cmd.Parameters.AddWithValue("@Logon_Date", poco.LogonDate);
+                    cmd.Parameters.AddWithValue("@Is_Succesful", poco.IsSuccesful);
                     
                     connection.Open();
                     cmd.ExecuteNonQuery();
@@ -36,14 +39,15 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
+       
         public void CallStoredProc(string name, params Tuple<string, string>[] parameters)
         {
             throw new NotImplementedException();
         }
 
-        public IList<SecurityLoginsRolePoco> GetAll(params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
+        public IList<SecurityLoginLogPoco> GetAll(params Expression<Func<SecurityLoginLogPoco, object>>[] navigationProperties)
         {
-            SecurityLoginsRolePoco[] pocos = new SecurityLoginsRolePoco[1000];
+            SecurityLoginLogPoco[] pocos = new SecurityLoginLogPoco[1000];
             {
                 SqlConnection connection = new SqlConnection(_connString);
                 using (connection)
@@ -57,10 +61,12 @@ namespace CareerCloud.ADODataAccessLayer
                     int position = 0;
                     while (reader.Read())
                     {
-                        SecurityLoginsRolePoco poco = new SecurityLoginsRolePoco();
+                        SecurityLoginLogPoco poco = new SecurityLoginLogPoco();
                         poco.Id = reader.GetGuid(0);
                         poco.Login = reader.GetGuid(1);
-                        poco.Role = reader.GetGuid(2);
+                        poco.SourceIP = reader.GetString(2);
+                        poco.LogonDate = reader.GetDateTime(3);
+                        poco.IsSuccesful = reader.GetBoolean(4);
                         pocos[position] = poco;
                         position++;
                     }
@@ -68,31 +74,30 @@ namespace CareerCloud.ADODataAccessLayer
                     return pocos.Where(p => p != null).ToList();
 
                 }
-
             }
         }
 
-        public IList<SecurityLoginsRolePoco> GetList(Expression<Func<SecurityLoginsRolePoco, bool>> where, params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
+        public IList<SecurityLoginLogPoco> GetList(Expression<Func<SecurityLoginLogPoco, bool>> where, params Expression<Func<SecurityLoginLogPoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
         }
 
-        public SecurityLoginsRolePoco GetSingle(Expression<Func<SecurityLoginsRolePoco, bool>> where, params Expression<Func<SecurityLoginsRolePoco, object>>[] navigationProperties)
+        public SecurityLoginLogPoco GetSingle(Expression<Func<SecurityLoginLogPoco, bool>> where, params Expression<Func<SecurityLoginLogPoco, object>>[] navigationProperties)
         {
-            IQueryable<SecurityLoginsRolePoco> pocos = GetAll().AsQueryable();
+            IQueryable<SecurityLoginLogPoco> pocos = GetAll().AsQueryable();
             return pocos.Where(where).FirstOrDefault();
         }
 
-        public void Remove(params SecurityLoginsRolePoco[] items)
+        public void Remove(params SecurityLoginLogPoco[] items)
         {
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
-                foreach (SecurityLoginsRolePoco poco in items)
+                foreach (SecurityLoginLogPoco poco in items)
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = connection;
-                    cmd.CommandText = @"delete from Security_Logins_Roles
+                    cmd.CommandText = @"delete from Company_Logins_Log
                             where Id= @Id";
                     cmd.Parameters.AddWithValue("@Id", poco.Id);
                     connection.Open();
@@ -102,21 +107,25 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        public void Update(params SecurityLoginsRolePoco[] items)
+        public void Update(params SecurityLoginLogPoco[] items)
         {
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = connection;
-                foreach (SecurityLoginsRolePoco poco in items)
+                foreach (SecurityLoginLogPoco poco in items)
                 {
-                    cmd.CommandText = @"update Security_Logins_Roles
-                    set Login=@Login,
-                    Role=@Role,
+                    cmd.CommandText = @"update Security_Logins_Log
+                    set Login=@Registration_Date,
+                    Source_IP=@Source_IP,
+                    Logon_Date=@Logon_Date,
+                    Is_Succesful=@Is_Succesful,
                     where Id = @Id";
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
-                    cmd.Parameters.AddWithValue("@Role", poco.Role);
+                    cmd.Parameters.AddWithValue("@Source_IP", poco.SourceIP);
+                    cmd.Parameters.AddWithValue("@Logon_Date", poco.LogonDate);
+                    cmd.Parameters.AddWithValue("@Is_Succesful", poco.IsSuccesful);
                     connection.Open();
                     cmd.ExecuteNonQuery();
                     connection.Close();
