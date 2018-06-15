@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class ApplicantJobApplicationRepository : BaseADO,IDataRepository<ApplicantJobApplicationPoco>
+    public class ApplicantJobApplicationRepository : BaseADO,IDataRepository<ApplicantJobApplicationPoco>
     {
         public void Add(params ApplicantJobApplicationPoco[] items)
         {
@@ -52,7 +52,7 @@ namespace CareerCloud.ADODataAccessLayer
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = connection;
 
-                cmd.CommandText = @"select * from Applicant_Job_Educations";
+                cmd.CommandText = @"select * from Applicant_Job_Applications";
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 int position = 0;
@@ -68,7 +68,7 @@ namespace CareerCloud.ADODataAccessLayer
                     position++;
                 }
                 connection.Close();
-                return pocos;
+                return pocos.Where(p=>p!=null).ToList();
             }
         }
 
@@ -113,14 +113,15 @@ namespace CareerCloud.ADODataAccessLayer
                     cmd.Connection = connection;
                     foreach (ApplicantJobApplicationPoco poco in items)
                     {
-                        cmd.CommandText = @"update Applicant_Educations
+                    cmd.CommandText = @"update Applicant_Job_Applications
                     set Applicant=@Applicant,
                     Job=@Job,
-                    Application_date=@Application_date,
+                    Application_Date=@Application_Date
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                         cmd.Parameters.AddWithValue("@Applicant", poco.Applicant);
                         cmd.Parameters.AddWithValue("@Job", poco.Job);
-                        cmd.Parameters.AddWithValue("@Applicationdate", poco.ApplicationDate);
+                        cmd.Parameters.AddWithValue("@Application_Date", poco.ApplicationDate);
                         connection.Open();
                         cmd.ExecuteNonQuery();
                         connection.Close();

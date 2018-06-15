@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class ApplicantWorkHistoryRepository : BaseADO, IDataRepository<ApplicantWorkHistoryPoco>
+    public class ApplicantWorkHistoryRepository : BaseADO, IDataRepository<ApplicantWorkHistoryPoco>
     {
         public void Add(params ApplicantWorkHistoryPoco[] items)
         {
@@ -22,7 +22,7 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (ApplicantWorkHistoryPoco poco in items)
                 {
                     cmd.CommandText = @"insert into Applicant_Work_History 
-                (Id, Applicant, Company_Name,Country_Code, Location, Job_title, Job_Description
+                (Id, Applicant, Company_Name,Country_Code, Location, Job_title, Job_Description,
                 Start_Month,Start_Year, End_Month, End_Year)
                 values
                 (@Id, @Applicant, @Company_Name,@Country_Code, @Location, @Job_title, @Job_Description,
@@ -73,11 +73,11 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Location = reader.GetString(4);
                     poco.JobTitle = reader.GetString(5);
                     poco.JobDescription = reader.GetString(6);
-                    poco.StartMonth = reader.GetByte(4);
-                    poco.StartYear = reader.GetInt32(5);
-                    poco.EndMonth = reader.GetByte(6);
-                    poco.EndYear = reader.GetInt32(7);
-                    poco.TimeStamp = (Byte[])reader[8];
+                    poco.StartMonth = reader.GetInt16(7);
+                    poco.StartYear = reader.GetInt32(8);
+                    poco.EndMonth = reader.GetInt16(9);
+                    poco.EndYear = reader.GetInt32(10);
+                    poco.TimeStamp = (Byte[])reader[11];
 
                     pocos[position] = poco;
                     position++;
@@ -132,8 +132,8 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     cmd.CommandText = @"update Applicant_Work_History
                     set Applicant=@Applicant,
-                    Company_Name=@Skill,
-                    Country_Code=@Skill_Level,
+                    Company_Name=@Company_Name,
+                    Country_Code=@Country_Code,
                     Location=@Location,
                     Job_Title=@Job_Title,
                     Job_Description=@Job_Description,
@@ -142,6 +142,7 @@ namespace CareerCloud.ADODataAccessLayer
                     Start_Year=@Start_Year,              
                     End_Year=@End_Year
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Applicant", poco.Applicant);
                     cmd.Parameters.AddWithValue("@Company_Name", poco.CompanyName);
                     cmd.Parameters.AddWithValue("@Country_Code", poco.CountryCode);

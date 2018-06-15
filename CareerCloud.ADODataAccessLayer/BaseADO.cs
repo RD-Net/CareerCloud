@@ -13,7 +13,7 @@ namespace CareerCloud.ADODataAccessLayer
         protected readonly string _connString;
         public BaseADO()
         {
-            _connString = ConfigurationManager.ConnectionStrings["MyConnection"].ConnectionString;
+            _connString = ConfigurationManager.ConnectionStrings["dbconnection"].ConnectionString;
         }
 
     }

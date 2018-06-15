@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class CompanyProfileRepository : BaseADO, IDataRepository<CompanyProfilePoco>
+    public class CompanyProfileRepository : BaseADO, IDataRepository<CompanyProfilePoco>
     {
         public void Add(params CompanyProfilePoco[] items)
         {
@@ -63,11 +63,12 @@ namespace CareerCloud.ADODataAccessLayer
                     CompanyProfilePoco poco = new CompanyProfilePoco();
                     poco.Id = reader.GetGuid(0);
                     poco.RegistrationDate = reader.GetDateTime(1);
-                    poco.CompanyWebsite = reader.GetString(2);
+                    poco.CompanyWebsite = (reader.IsDBNull(2)? null:reader.GetString(2));
                     poco.ContactPhone = reader.GetString(3);
-                    poco.ContactName = reader.GetString(4);
-                    poco.CompanyLogo = (Byte[])reader[5];
-                    poco.TimeStamp = (Byte[])reader[6];
+                    poco.ContactName = (reader.IsDBNull(4)?null:reader.GetString(4));
+                    poco.CompanyLogo = (reader.IsDBNull(5)?null:(Byte[])reader[5]);
+                    poco.TimeStamp = (reader.IsDBNull(6) ? null : (Byte[])reader[6]);
+                   
                     pocos[position] = poco;
                     position++;
                 }
@@ -122,6 +123,7 @@ namespace CareerCloud.ADODataAccessLayer
                     Contact_Name=@Contact_Name,
                     Company_Logo=@Company_Logo
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Registration_Date", poco.RegistrationDate);
                     cmd.Parameters.AddWithValue("@Company_Website", poco.CompanyWebsite);
                     cmd.Parameters.AddWithValue("@Contact_Phone", poco.ContactPhone);

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class SecurityRoleRepository : BaseADO, IDataRepository<SecurityRolePoco>
+    public class SecurityRoleRepository : BaseADO, IDataRepository<SecurityRolePoco>
     {
         public void Add(params SecurityRolePoco[] items)
         {
@@ -49,7 +49,7 @@ namespace CareerCloud.ADODataAccessLayer
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = connection;
 
-                cmd.CommandText = @"select * from Security_Logins";
+                cmd.CommandText = @"select * from Security_Roles";
                 connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 int position = 0;
@@ -58,7 +58,7 @@ namespace CareerCloud.ADODataAccessLayer
                     SecurityRolePoco poco = new SecurityRolePoco();
                     poco.Id = reader.GetGuid(0);
                     poco.Role = reader.GetString(1);
-                    poco.IsInactive = reader.GetBoolean(7);
+                    poco.IsInactive = reader.GetBoolean(2);
 
                     pocos[position] = poco;
                     position++;
@@ -108,10 +108,11 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (SecurityRolePoco poco in items)
                 {
-                    cmd.CommandText = @"update Security_Logins
+                    cmd.CommandText = @"update Security_Roles
                     set Role=@Role,
                     Is_Inactive=@Is_Inactive
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Role", poco.Role);
                     cmd.Parameters.AddWithValue("@Is_Inactive", poco.IsInactive);
                     connection.Open();

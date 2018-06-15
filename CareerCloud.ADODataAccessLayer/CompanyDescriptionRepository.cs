@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class CompanyDescriptionRepository : BaseADO, IDataRepository<CompanyDescriptionPoco>
+   public class CompanyDescriptionRepository : BaseADO, IDataRepository<CompanyDescriptionPoco>
     {
         public void Add(params CompanyDescriptionPoco[] items)
         {
@@ -118,12 +118,13 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     cmd.CommandText = @"update Company_Descriptions
                     set Company=@Company,
-                    Language_ID=@Language_ID,
+                    LanguageID=@LanguageID,
                     Company_Name=@Company_Name,
                     Company_Description=@Company_Description
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Company", poco.Company);
-                    cmd.Parameters.AddWithValue("@Language_ID", poco.LanguageId);
+                    cmd.Parameters.AddWithValue("@LanguageID", poco.LanguageId);
                     cmd.Parameters.AddWithValue("@Company_Name", poco.CompanyName);
                     cmd.Parameters.AddWithValue("@Company_Description", poco.CompanyDescription);
                     connection.Open();

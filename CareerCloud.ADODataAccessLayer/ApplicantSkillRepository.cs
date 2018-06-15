@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class ApplicantSkillRepository : BaseADO, IDataRepository<ApplicantSkillPoco>
+    public class ApplicantSkillRepository : BaseADO, IDataRepository<ApplicantSkillPoco>
     {
         public void Add(params ApplicantSkillPoco[] items)
         {
@@ -21,7 +21,7 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (ApplicantSkillPoco poco in items)
                 {
-                    cmd.CommandText = @"insert into Applicant_Skill 
+                    cmd.CommandText = @"insert into Applicant_Skills 
                 (Id, Applicant, Skill, Skill_Level, Start_Month,
                 Start_Year, End_Month, End_Year)
                 values
@@ -102,7 +102,7 @@ namespace CareerCloud.ADODataAccessLayer
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = connection;
-                    cmd.CommandText = @"delete from Applicant_Resumes
+                    cmd.CommandText = @"delete from Applicant_Skills
                             where ID= @Id";
                     cmd.Parameters.AddWithValue("@Id", poco.Id);
                     connection.Open();
@@ -127,11 +127,12 @@ namespace CareerCloud.ADODataAccessLayer
                     set Applicant=@Applicant,
                     Skill=@Skill,
                     Skill_Level=@Skill_Level,
-                    Start_Month=@@Start_Month,
+                    Start_Month=@Start_Month,
                     Start_Year=@Start_Year,
                     End_Month=@End_Month,
                     End_Year=@End_Year
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Applicant", poco.Applicant);
                     cmd.Parameters.AddWithValue("@Skill", poco.Skill);
                     cmd.Parameters.AddWithValue("@Skill_Level", poco.SkillLevel);

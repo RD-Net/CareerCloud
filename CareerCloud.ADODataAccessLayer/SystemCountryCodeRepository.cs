@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class SystemCountryCodeRepository : BaseADO, IDataRepository<SystemCountryCodePoco>
+   public class SystemCountryCodeRepository : BaseADO, IDataRepository<SystemCountryCodePoco>
     {
         public void Add(params SystemCountryCodePoco[] items)
         {
@@ -21,7 +21,7 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (SystemCountryCodePoco poco in items)
                 {
-                    cmd.CommandText = @"insert into Security_Logins_Log(Code, Name)
+                    cmd.CommandText = @"insert into System_Country_Codes(Code, Name)
                     values (@Code, @Name)";
                     cmd.Parameters.AddWithValue("@Code", poco.Code);
                     cmd.Parameters.AddWithValue("@Name", poco.Name);
@@ -105,9 +105,10 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (SystemCountryCodePoco poco in items)
                 {
-                    cmd.CommandText = @"update Security_Logins
+                    cmd.CommandText = @"update System_Country_Codes
                     set Name=@Name
                     where Code = @Code";
+                    cmd.Parameters.AddWithValue("@Code", poco.Code);
                     cmd.Parameters.AddWithValue("@Name", poco.Name);
                     connection.Open();
                     cmd.ExecuteNonQuery();

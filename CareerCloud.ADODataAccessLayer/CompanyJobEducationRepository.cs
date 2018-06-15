@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class CompanyJobEducationRepository : BaseADO,IDataRepository<CompanyJobEducationPoco>
+    public class CompanyJobEducationRepository : BaseADO,IDataRepository<CompanyJobEducationPoco>
     {
         public void Add(params CompanyJobEducationPoco[] items)
         {
@@ -44,7 +44,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyJobEducationPoco> GetAll(params Expression<Func<CompanyJobEducationPoco, object>>[] navigationProperties)
         {
-            CompanyJobEducationPoco[] pocos = new CompanyJobEducationPoco[1000];
+            CompanyJobEducationPoco[] pocos = new CompanyJobEducationPoco[1001];
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
@@ -114,6 +114,7 @@ namespace CareerCloud.ADODataAccessLayer
                     Major=@Major,
                     Importance=@Importance
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Job", poco.Job);
                     cmd.Parameters.AddWithValue("@Major", poco.Major);
                     cmd.Parameters.AddWithValue("@Importance", poco.Importance);

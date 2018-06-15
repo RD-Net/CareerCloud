@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class SecurityLoginsRoleRepository :BaseADO, IDataRepository<SecurityLoginsRolePoco>
+    public class SecurityLoginsRoleRepository :BaseADO, IDataRepository<SecurityLoginsRolePoco>
     {
         public void Add(params SecurityLoginsRolePoco[] items)
         {
@@ -21,8 +21,8 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (SecurityLoginsRolePoco poco in items)
                 {
-                    cmd.CommandText = @"insert into Security_Logins_Log(Id, Login, Role)
-                    values (@Id, @Login, @Source_IP,@Logon_Date,@Is_Successful)";
+                    cmd.CommandText = @"insert into Security_Logins_Roles(Id, Login, Role)
+                    values (@Id, @Login, @Role)";
                     cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
                     cmd.Parameters.AddWithValue("@Role", poco.Role);

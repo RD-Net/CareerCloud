@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class CompanyJobSkillRepository : BaseADO, IDataRepository<CompanyJobSkillPoco>
+   public class CompanyJobSkillRepository : BaseADO, IDataRepository<CompanyJobSkillPoco>
     {
         public void Add(params CompanyJobSkillPoco[] items)
         {
@@ -21,7 +21,7 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (CompanyJobSkillPoco poco in items)
                 {
-                    cmd.CommandText = @"insert into CompanyJobSkill
+                    cmd.CommandText = @"insert into Company_Job_Skills
                 (Id, Job, Skill, Skill_Level,Importance)
                 values
                 (@Id, @Job, @Skill, @Skill_Level,@Importance)";
@@ -45,7 +45,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyJobSkillPoco> GetAll(params Expression<Func<CompanyJobSkillPoco, object>>[] navigationProperties)
         {
-            CompanyJobSkillPoco[] pocos = new CompanyJobSkillPoco[1000];
+            CompanyJobSkillPoco[] pocos = new CompanyJobSkillPoco[5001];
             SqlConnection connection = new SqlConnection(_connString);
             {
                 using (connection)
@@ -68,10 +68,13 @@ namespace CareerCloud.ADODataAccessLayer
                         pocos[position] = poco;
                         position++;
                     }
+
                     connection.Close();
-                    return pocos.Where(p => p != null).ToList();
                 }
+                    return pocos.Where(p => p != null).ToList();
             }
+            
+            
         }
 
         public IList<CompanyJobSkillPoco> GetList(Expression<Func<CompanyJobSkillPoco, bool>> where, params Expression<Func<CompanyJobSkillPoco, object>>[] navigationProperties)
@@ -117,8 +120,9 @@ namespace CareerCloud.ADODataAccessLayer
                     set Job=@Job,
                     Skill=@Skill,
                     Skill_Level=@Skill_Level,
-                    Importance=@Importance,
+                    Importance=@Importance
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Job", poco.Job);
                     cmd.Parameters.AddWithValue("@Skill", poco.Skill);
                     cmd.Parameters.AddWithValue("@Skill_Level", poco.SkillLevel);

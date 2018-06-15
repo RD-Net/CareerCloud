@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class CompanyJobRepository : BaseADO, IDataRepository<CompanyJobPoco>
+    public class CompanyJobRepository : BaseADO, IDataRepository<CompanyJobPoco>
     {
         public void Add(params CompanyJobPoco[] items)
         {
@@ -45,7 +45,7 @@ namespace CareerCloud.ADODataAccessLayer
 
         public IList<CompanyJobPoco> GetAll(params Expression<Func<CompanyJobPoco, object>>[] navigationProperties)
         {
-            CompanyJobPoco[] pocos = new CompanyJobPoco[1000];
+            CompanyJobPoco[] pocos = new CompanyJobPoco[1001];
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
@@ -69,9 +69,11 @@ namespace CareerCloud.ADODataAccessLayer
                     position++;
                 }
                 connection.Close();
-                return pocos.Where(p => p != null).ToList();
             }
+            return pocos.Where(p => p != null).ToList();
         }
+            
+     
 
         public IList<CompanyJobPoco> GetList(Expression<Func<CompanyJobPoco, bool>> where, params Expression<Func<CompanyJobPoco, object>>[] navigationProperties)
         {
@@ -115,8 +117,9 @@ namespace CareerCloud.ADODataAccessLayer
                     set Company=@Company,
                     Profile_Created=@Profile_Created,
                     Is_Inactive=@Is_Inactive,
-                    Is_Company_Hidden=@Company_Hidden,
+                    Is_Company_Hidden=@Is_Company_Hidden
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Company", poco.Company);
                     cmd.Parameters.AddWithValue("@Profile_Created", poco.ProfileCreated);
                     cmd.Parameters.AddWithValue("@Is_Inactive", poco.IsInactive);

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class ApplicantEducationRepository : BaseADO, IDataRepository<ApplicantEducationPoco>
+    public class ApplicantEducationRepository : BaseADO, IDataRepository<ApplicantEducationPoco>
     {
         public void Add(params ApplicantEducationPoco[] items)
         {
@@ -125,9 +125,10 @@ namespace CareerCloud.ADODataAccessLayer
                     Major=@Major,
                     Certificate_Diploma=@Certificate_Diploma,
                     Start_Date=@Start_Date,
-                    Completion_Date=@Completion_Date;
+                    Completion_Date=@Completion_Date,
                     Completion_Percent=@Completion_Percent
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Applicant", poco.Applicant);
                     cmd.Parameters.AddWithValue("@Major", poco.Major);
                     cmd.Parameters.AddWithValue("@Certificate_Diploma", poco.CertificateDiploma);

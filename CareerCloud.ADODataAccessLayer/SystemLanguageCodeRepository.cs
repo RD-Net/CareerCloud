@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class SystemLanguageCodeRepository : BaseADO, IDataRepository<SystemLanguageCodePoco>
+    public class SystemLanguageCodeRepository : BaseADO, IDataRepository<SystemLanguageCodePoco>
     {
         public void Add(params SystemLanguageCodePoco[] items)
         {
@@ -21,7 +21,7 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (SystemLanguageCodePoco poco in items)
                 {
-                    cmd.CommandText = @"insert into Security_Logins_Log(LanguageId, Name, Native_Name)
+                    cmd.CommandText = @"insert into System_Language_Codes(LanguageId, Name, Native_Name)
                     values (@LanguageId, @Name, @Native_name)";
                     cmd.Parameters.AddWithValue("@LanguageId", poco.LanguageID);
                     cmd.Parameters.AddWithValue("@Name", poco.Name);
@@ -109,10 +109,11 @@ namespace CareerCloud.ADODataAccessLayer
                 cmd.Connection = connection;
                 foreach (SystemLanguageCodePoco poco in items)
                 {
-                    cmd.CommandText = @"update Security_Logins
+                    cmd.CommandText = @"update System_Language_Codes
                     set Name=@Name,
                     Native_Name=@Native_Name
                     where LanguageID = @LanguageID";
+                    cmd.Parameters.AddWithValue("@LanguageID", poco.LanguageID);
                     cmd.Parameters.AddWithValue("@Name", poco.Name);
                     cmd.Parameters.AddWithValue("@Native_Name", poco.NativeName);
                     connection.Open();

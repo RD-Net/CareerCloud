@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class CompanyLocationRepository : BaseADO,IDataRepository<CompanyLocationPoco>
+    public class CompanyLocationRepository : BaseADO,IDataRepository<CompanyLocationPoco>
     {
         public void Add(params CompanyLocationPoco[] items)
         {
@@ -65,16 +65,16 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Id = reader.GetGuid(0);
                     poco.Company = reader.GetGuid(1);
                     poco.CountryCode = reader.GetString(2);
-                    poco.Province = reader.GetString(3);
-                    poco.Street = reader.GetString(4);
-                    poco.City = reader.GetString(5);
-                    poco.PostalCode = reader.GetString(6);
+                    poco.Province = (reader.IsDBNull(3) ? null : reader.GetString(3));
+                    poco.Street = (reader.IsDBNull(4) ? null : reader.GetString(4));
+                    poco.City = (reader.IsDBNull(5) ? null : reader.GetString(5));
+                    poco.PostalCode = (reader.IsDBNull(6)? null:reader.GetString(6));
                     poco.TimeStamp = (Byte[])reader[7];
                     pocos[position] = poco;
                     position++;
                 }
                 connection.Close();
-                return pocos;
+                return pocos.Where(p=>p!=null).ToList();
             }
         }
 
@@ -125,6 +125,7 @@ namespace CareerCloud.ADODataAccessLayer
                     City_Town=@City_Town,
                     Zip_Postal_Code=@Zip_Postal_Code
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Company", poco.Company);
                     cmd.Parameters.AddWithValue("@Country_Code", poco.CountryCode);
                     cmd.Parameters.AddWithValue("@State_Province_Code", poco.Province);

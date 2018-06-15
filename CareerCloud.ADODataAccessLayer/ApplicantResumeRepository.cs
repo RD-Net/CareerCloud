@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class ApplicantResumeRepository : BaseADO, IDataRepository<ApplicantResumePoco>
+    public class ApplicantResumeRepository : BaseADO, IDataRepository<ApplicantResumePoco>
     {
         public void Add(params ApplicantResumePoco[] items)
         {
@@ -62,7 +62,7 @@ namespace CareerCloud.ADODataAccessLayer
                     poco.Id = reader.GetGuid(0);
                     poco.Applicant = reader.GetGuid(1);
                     poco.Resume = reader.GetString(2);
-                    poco.LastUpdated = (DateTime?)reader[3];
+                    poco.LastUpdated = reader.IsDBNull(3)? (DateTime?)null: reader.GetDateTime(3);
                     pocos[position] = poco;
                     position++;
                 }
@@ -117,6 +117,7 @@ namespace CareerCloud.ADODataAccessLayer
                     Resume=@Resume,
                     Last_Updated=@Last_Updated
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Applicant", poco.Applicant);
                     cmd.Parameters.AddWithValue("@Resume", poco.Resume);
                     cmd.Parameters.AddWithValue("@Last_Updated", poco.LastUpdated);

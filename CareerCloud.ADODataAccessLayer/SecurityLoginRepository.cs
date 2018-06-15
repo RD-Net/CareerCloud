@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    class SecurityLoginRepository : BaseADO, IDataRepository<SecurityLoginPoco>
+   public class SecurityLoginRepository : BaseADO, IDataRepository<SecurityLoginPoco>
     {
         public void Add(params SecurityLoginPoco[] items)
         {
@@ -22,19 +22,19 @@ namespace CareerCloud.ADODataAccessLayer
                 foreach (SecurityLoginPoco poco in items)
                 {
                     cmd.CommandText = @"insert into Security_Logins(Id, Login, Password,
-                    Created_Date,Password_Update, Agreement_Accepted, Is_Locked,
+                    Created_Date,Password_Update_Date, Agreement_Accepted_Date, Is_Locked,
                     Is_Inactive,Email_Address, Phone_Number, Full_Name, Force_Change_Password,
                     Prefferred_Language)
                     values (@Id, @Login, @Password,
-                    @Created_Date,@Password_Update, @Agreement_Accepted, @Is_Locked,
+                    @Created_Date,@Password_Update_Date, @Agreement_Accepted_Date, @Is_Locked,
                     @Is_Inactive,@Email_Address, @Phone_Number, @Full_Name, @Force_Change_Password,
                     @Prefferred_Language)";
                     cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
                     cmd.Parameters.AddWithValue("@Password", poco.Password);
                     cmd.Parameters.AddWithValue("@Created_Date", poco.Created);
-                    cmd.Parameters.AddWithValue("@Password_Update", poco.PasswordUpdate);
-                    cmd.Parameters.AddWithValue("@Agreement_Accepted", poco.AgreementAccepted);
+                    cmd.Parameters.AddWithValue("@Password_Update_Date", poco.PasswordUpdate);
+                    cmd.Parameters.AddWithValue("@Agreement_Accepted_Date", poco.AgreementAccepted);
                     cmd.Parameters.AddWithValue("@Is_Locked", poco.IsLocked);
                     cmd.Parameters.AddWithValue("@Is_Inactive", poco.IsInactive);
                     cmd.Parameters.AddWithValue("@Email_Address", poco.EmailAddress);
@@ -78,15 +78,15 @@ namespace CareerCloud.ADODataAccessLayer
                         poco.Login = reader.GetString(1);
                         poco.Password = reader.GetString(2);
                         poco.Created = reader.GetDateTime(3);
-                        poco.PasswordUpdate = reader.GetDateTime(4);
-                        poco.AgreementAccepted = reader.GetDateTime(5);
+                        poco.PasswordUpdate = reader.IsDBNull(4)? null:(DateTime?)reader.GetDateTime(4);
+                        poco.AgreementAccepted = reader.IsDBNull(4) ? null : (DateTime?)reader.GetDateTime(5);
                         poco.IsLocked = reader.GetBoolean(6);
                         poco.IsInactive = reader.GetBoolean(7);
                         poco.EmailAddress = reader.GetString(8);
-                        poco.PhoneNumber = reader.GetString(9);
-                        poco.FullName = reader.GetString(10);
+                        poco.PhoneNumber = reader.IsDBNull(9)? null:reader.GetString(9);
+                        poco.FullName = reader.IsDBNull(10) ? null : reader.GetString(10);
                         poco.ForceChangePassword = reader.GetBoolean(11);
-                        poco.PrefferredLanguage = reader.GetString(12);
+                        poco.PrefferredLanguage =reader.IsDBNull(12)? null: reader.GetString(12);
                         poco.TimeStamp = (Byte[])reader[13];
                         pocos[position] = poco;
                         position++;
@@ -141,21 +141,22 @@ namespace CareerCloud.ADODataAccessLayer
                     set Login=@Login,
                     Password=@Password,
                     Created_Date=@Created_Date,
-                    Password_Update=@Password_Update,
-                    Agreement_Accepted=@Agreement_Accepted,
+                    Password_Update_Date=@Password_Update_Date,
+                    Agreement_Accepted_Date=@Agreement_Accepted_Date,
                     Is_Locked=@Is_Locked,
                     Is_Inactive=@Is_Inactive,
-                    Email_Address=Email_Address,
-                    Phone_number=Phone_number,
-                    Full_Name=Full_Name,
-                    Force_Change_Password=Force_Change_Password,
-                    Prefferred_Language=Prefferred_Language
+                    Email_Address=@Email_Address,
+                    Phone_number=@Phone_number,
+                    Full_Name=@Full_Name,
+                    Force_Change_Password=@Force_Change_Password,
+                    Prefferred_Language=@Prefferred_Language
                     where Id = @Id";
+                    cmd.Parameters.AddWithValue("@Id", poco.Id);
                     cmd.Parameters.AddWithValue("@Login", poco.Login);
                     cmd.Parameters.AddWithValue("@Password", poco.Password);
                     cmd.Parameters.AddWithValue("@Created_Date", poco.Created);
-                    cmd.Parameters.AddWithValue("@Password_Update", poco.PasswordUpdate);
-                    cmd.Parameters.AddWithValue("@Agreement_Accepted", poco.AgreementAccepted);
+                    cmd.Parameters.AddWithValue("@Password_Update_Date", poco.PasswordUpdate);
+                    cmd.Parameters.AddWithValue("@Agreement_Accepted_Date", poco.AgreementAccepted);
                     cmd.Parameters.AddWithValue("@Is_Locked", poco.IsLocked);
                     cmd.Parameters.AddWithValue("@Is_Inactive", poco.IsInactive);
                     cmd.Parameters.AddWithValue("@Email_Address", poco.EmailAddress);
