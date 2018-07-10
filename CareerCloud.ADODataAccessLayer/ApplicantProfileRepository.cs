@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.ADODataAccessLayer
 {
-    public class ApplicantProfileRepository : BaseADO, IDataRepository<ApplicantJobApplicationPoco>
+    public class ApplicantProfileRepository : BaseADO, IDataRepository<ApplicantProfilePoco>
     {
-        public void Add(params ApplicantJobApplicationPoco[] items)
+        public void Add(params ApplicantProfilePoco[] items)
         {
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = connection;
-                foreach (ApplicantJobApplicationPoco poco in items)
+                foreach (ApplicantProfilePoco poco in items)
                 {
                     cmd.CommandText = @"Insert into Applicant_Profiles
                (Id, Login, Current_Salary,Current_Rate, Currency, Country_Code,
@@ -51,9 +51,9 @@ namespace CareerCloud.ADODataAccessLayer
             throw new NotImplementedException();
         }
 
-        public IList<ApplicantJobApplicationPoco> GetAll(params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
+        public IList<ApplicantProfilePoco> GetAll(params Expression<Func<ApplicantProfilePoco, object>>[] navigationProperties)
         {
-            ApplicantJobApplicationPoco[] pocos = new ApplicantJobApplicationPoco[1000];
+            ApplicantProfilePoco[] pocos = new ApplicantProfilePoco[1000];
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
@@ -65,7 +65,7 @@ namespace CareerCloud.ADODataAccessLayer
                 int position = 0;
                 while (reader.Read())
                 {
-                    ApplicantJobApplicationPoco poco = new ApplicantJobApplicationPoco();
+                    ApplicantProfilePoco poco = new ApplicantProfilePoco();
                     poco.Id = reader.GetGuid(0);
                     poco.Login = reader.GetGuid(1);
                     poco.CurrentSalary = (Decimal?)reader[2];
@@ -86,24 +86,24 @@ namespace CareerCloud.ADODataAccessLayer
             }
 
         }
-        public IList<ApplicantJobApplicationPoco> GetList(Expression<Func<ApplicantJobApplicationPoco, bool>> where, params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
+
+         public IList<ApplicantProfilePoco> GetList(Expression<Func<ApplicantProfilePoco, bool>> where, params Expression<Func<ApplicantProfilePoco, object>>[] navigationProperties)
         {
             throw new NotImplementedException();
-
         }
 
-        public ApplicantJobApplicationPoco GetSingle(Expression<Func<ApplicantJobApplicationPoco, bool>> where, params Expression<Func<ApplicantJobApplicationPoco, object>>[] navigationProperties)
+        public ApplicantProfilePoco GetSingle(Expression<Func<ApplicantProfilePoco, bool>> where, params Expression<Func<ApplicantProfilePoco, object>>[] navigationProperties)
         {
-            IQueryable<ApplicantJobApplicationPoco> pocos = GetAll().AsQueryable();
+            IQueryable<ApplicantProfilePoco> pocos = GetAll().AsQueryable();
             return pocos.Where(where).FirstOrDefault();
         }
 
-        public void Remove(params ApplicantJobApplicationPoco[] items)
+         public void Remove(params ApplicantProfilePoco[] items)
         {
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
-                foreach (ApplicantJobApplicationPoco poco in items)
+                foreach (ApplicantProfilePoco poco in items)
                 {
                     SqlCommand cmd = new SqlCommand();
                     cmd.Connection = connection;
@@ -117,14 +117,14 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-        public void Update(params ApplicantJobApplicationPoco[] items)
+          public void Update(params ApplicantProfilePoco[] items)
         {
             SqlConnection connection = new SqlConnection(_connString);
             using (connection)
             {
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = connection;
-                foreach (ApplicantJobApplicationPoco poco in items)
+                foreach (ApplicantProfilePoco poco in items)
                 {
                     cmd.CommandText = @"update Applicant_Profiles
                     set Login=@Login,
@@ -155,6 +155,6 @@ namespace CareerCloud.ADODataAccessLayer
             }
         }
 
-
+       
     }
 }

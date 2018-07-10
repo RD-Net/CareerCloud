@@ -43,7 +43,7 @@ namespace CareerCloud.BusinessLogicLayer
                 }
                 if (poco.EndYear < poco.StartYear)
                 {
-                    exceptions.Add(new ValidationException(102, $"Cannot be less than StartYear-{poco.Id}"));
+                    exceptions.Add(new ValidationException(104, $"Cannot be less than StartYear-{poco.Id}"));
                 }
                 if (exceptions.Count > 0)
                 {

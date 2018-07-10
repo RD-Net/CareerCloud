@@ -64,6 +64,10 @@
     <Compile Include="SystemLanguageCodeRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CareerCloud.BusinessLogicLayer\CareerCloud.BusinessLogicLayer.csproj">
+      <Project>{fb3427a2-9a50-4ae9-bba6-11add96526be}</Project>
+      <Name>CareerCloud.BusinessLogicLayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CareerCloud.DataAccessLayer\CareerCloud.DataAccessLayer.csproj">
       <Project>{f6ca27fd-f0f7-46d8-95e1-fab56e56db1c}</Project>
       <Name>CareerCloud.DataAccessLayer</Name>
