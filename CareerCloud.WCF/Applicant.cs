@@ -7,7 +7,7 @@ using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
     class Applicant : IApplicant
     {
@@ -26,11 +26,11 @@ namespace CareerCloud.WCF
 
         }
 
-        public ApplicantEducationPoco GetSingleApplicantEducation(Guid id)
+        public ApplicantEducationPoco GetSingleApplicantEducation(String id)
         {
             EFGenericRepository<ApplicantEducationPoco> repo = new EFGenericRepository<ApplicantEducationPoco>(false);
             ApplicantEducationLogic logic = new ApplicantEducationLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveApplicantEducation(ApplicantEducationPoco[] pocos)
@@ -62,11 +62,11 @@ namespace CareerCloud.WCF
 
         }
 
-        public ApplicantJobApplicationPoco GetSingleApplicantJobApplication(Guid id)
+        public ApplicantJobApplicationPoco GetSingleApplicantJobApplication(String id)
         {
             EFGenericRepository<ApplicantJobApplicationPoco> repo = new EFGenericRepository<ApplicantJobApplicationPoco>(false);
             ApplicantJobApplicationLogic logic = new ApplicantJobApplicationLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveApplicantJobApplication(ApplicantJobApplicationPoco[] pocos)
@@ -98,11 +98,11 @@ namespace CareerCloud.WCF
 
         }
 
-        public ApplicantProfilePoco GetSingleApplicantProfile(Guid id)
+        public ApplicantProfilePoco GetSingleApplicantProfile(String id)
         {
             EFGenericRepository<ApplicantProfilePoco> repo = new EFGenericRepository<ApplicantProfilePoco>(false);
             ApplicantProfileLogic logic = new ApplicantProfileLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveApplicantProfile(ApplicantProfilePoco[] pocos)
@@ -134,11 +134,11 @@ namespace CareerCloud.WCF
 
         }
 
-        public ApplicantResumePoco GetSingleApplicantResume(Guid id)
+        public ApplicantResumePoco GetSingleApplicantResume(String id)
         {
             EFGenericRepository<ApplicantResumePoco> repo = new EFGenericRepository<ApplicantResumePoco>(false);
             ApplicantResumeLogic logic = new ApplicantResumeLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveApplicantResume(ApplicantResumePoco[] pocos)
@@ -170,11 +170,11 @@ namespace CareerCloud.WCF
 
         }
 
-        public ApplicantSkillPoco GetSingleApplicantSkill(Guid id)
+        public ApplicantSkillPoco GetSingleApplicantSkill(String id)
         {
             EFGenericRepository<ApplicantSkillPoco> repo = new EFGenericRepository<ApplicantSkillPoco>(false);
             ApplicantSkillLogic logic = new ApplicantSkillLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveApplicantSkill(ApplicantSkillPoco[] pocos)
@@ -207,11 +207,11 @@ namespace CareerCloud.WCF
 
         }
 
-        public ApplicantWorkHistoryPoco GetSingleApplicantWorkHistory(Guid id)
+        public ApplicantWorkHistoryPoco GetSingleApplicantWorkHistory(String id)
         {
             EFGenericRepository<ApplicantWorkHistoryPoco> repo = new EFGenericRepository<ApplicantWorkHistoryPoco>(false);
             ApplicantWorkHistoryLogic logic = new ApplicantWorkHistoryLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveApplicantWorkHistory(ApplicantWorkHistoryPoco[] pocos)

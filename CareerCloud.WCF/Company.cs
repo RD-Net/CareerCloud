@@ -7,7 +7,7 @@ using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
     class Company : ICompany
     {
@@ -109,53 +109,53 @@ namespace CareerCloud.WCF
             return logic.GetAll();
         }
 
-        public CompanyDescriptionPoco GetSingleCompanyDescription(Guid id)
+        public CompanyDescriptionPoco GetSingleCompanyDescription(String id)
         {
             EFGenericRepository<CompanyDescriptionPoco> repo = new EFGenericRepository<CompanyDescriptionPoco>(false);
             CompanyDescriptionLogic logic = new CompanyDescriptionLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public CompanyJobPoco GetSingleCompanyJob(Guid id)
+        public CompanyJobPoco GetSingleCompanyJob(String id)
         {
             EFGenericRepository<CompanyJobPoco> repo = new EFGenericRepository<CompanyJobPoco>(false);
             CompanyJobLogic logic = new CompanyJobLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public CompanyJobDescriptionPoco GetSingleCompanyJobDescription(Guid id)
+        public CompanyJobDescriptionPoco GetSingleCompanyJobDescription(String id)
         {
             EFGenericRepository<CompanyJobDescriptionPoco> repo = new EFGenericRepository<CompanyJobDescriptionPoco>(false);
             CompanyJobDescriptionLogic logic = new CompanyJobDescriptionLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public CompanyJobEducationPoco GetSingleCompanyJobEducation(Guid id)
+        public CompanyJobEducationPoco GetSingleCompanyJobEducation(String id)
         {
             EFGenericRepository<CompanyJobEducationPoco> repo = new EFGenericRepository<CompanyJobEducationPoco>(false);
             CompanyJobEducationLogic logic = new CompanyJobEducationLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public CompanyJobSkillPoco GetSingleCompanyJobSkill(Guid id)
+        public CompanyJobSkillPoco GetSingleCompanyJobSkill(String id)
         {
             EFGenericRepository<CompanyJobSkillPoco> repo = new EFGenericRepository<CompanyJobSkillPoco>(false);
             CompanyJobSkillLogic logic = new CompanyJobSkillLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public CompanyLocationPoco GetSingleCompanyLocation(Guid id)
+        public CompanyLocationPoco GetSingleCompanyLocation(String id)
         {
             EFGenericRepository<CompanyLocationPoco> repo = new EFGenericRepository<CompanyLocationPoco>(false);
             CompanyLocationLogic logic = new CompanyLocationLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public CompanyProfilePoco GetSingleCompanyProfile(Guid id)
+        public CompanyProfilePoco GetSingleCompanyProfile(String id)
         {
             EFGenericRepository<CompanyProfilePoco> repo = new EFGenericRepository<CompanyProfilePoco>(false);
             CompanyProfileLogic logic = new CompanyProfileLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveCompanyDescription(CompanyDescriptionPoco[] pocos)

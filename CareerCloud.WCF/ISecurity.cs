@@ -6,15 +6,16 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
+    [ServiceContract]
     interface ISecurity
     {
         [OperationContract]
         void AddSecurityLogin(SecurityLoginPoco[] pocos);
 
-        [OperationContract]
-        SecurityLoginPoco GetSingleSecurityLogin(Guid id);
+       [OperationContract]
+       SecurityLoginPoco GetSingleSecurityLogin(String id);
 
         [OperationContract]
         List<SecurityLoginPoco> GetAllSecurityLogin();
@@ -29,7 +30,7 @@ namespace CareerCloud.WCF
         void AddSecurityLoginsLog(SecurityLoginsLogPoco[] pocos);
 
         [OperationContract]
-        SecurityLoginsLogPoco GetSingleSecurityLoginsLog(Guid id);
+       SecurityLoginsLogPoco GetSingleSecurityLoginsLog(String id);
 
         [OperationContract]
         List<SecurityLoginsLogPoco> GetAllSecurityLoginsLog();
@@ -43,7 +44,7 @@ namespace CareerCloud.WCF
         void AddSecurityLoginsRole(SecurityLoginsRolePoco[] pocos);
 
         [OperationContract]
-        SecurityLoginsRolePoco GetSinglesecurityLoginsRole(Guid id);
+       SecurityLoginsRolePoco GetSingleSecurityLoginsRole(String id);
 
         [OperationContract]
         List<SecurityLoginsRolePoco> GetAllSecurityLoginsRole();
@@ -52,13 +53,13 @@ namespace CareerCloud.WCF
         void UpdateSecurityLoginsRole(SecurityLoginsRolePoco[] pocos);
 
         [OperationContract]
-        void RemoveSecurityLoginsRole(SecurityLoginsRolePoco[] pocos);
+       void RemoveSecurityLoginsRole(SecurityLoginsRolePoco[] pocos);
 
         [OperationContract]
         void AddSecurityRole(SecurityRolePoco[] pocos);
 
         [OperationContract]
-        SecurityRolePoco GetSinglesecurityRole(Guid id);
+       SecurityRolePoco GetSingleSecurityRole(String id);
 
         [OperationContract]
         List<SecurityRolePoco> GetAllSecurityRole();
@@ -67,7 +68,7 @@ namespace CareerCloud.WCF
         void UpdateSecurityRole(SecurityRolePoco[] pocos);
 
         [OperationContract]
-        void RemoveSecurityRole(SecurityRolePoco[] pocos);
+       void RemoveSecurityRole(SecurityRolePoco[] pocos);
 
     }
 }

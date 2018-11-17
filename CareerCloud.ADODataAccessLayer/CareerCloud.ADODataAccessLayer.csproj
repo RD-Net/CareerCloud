@@ -69,7 +69,7 @@
       <Name>CareerCloud.BusinessLogicLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\CareerCloud.DataAccessLayer\CareerCloud.DataAccessLayer.csproj">
-      <Project>{f6ca27fd-f0f7-46d8-95e1-fab56e56db1c}</Project>
+      <Project>{F6CA27FD-F0F7-46D8-95E1-FAB56E56DB1C}</Project>
       <Name>CareerCloud.DataAccessLayer</Name>
     </ProjectReference>
     <ProjectReference Include="..\CareerCloud.Pocos\CareerCloud.Pocos.csproj">

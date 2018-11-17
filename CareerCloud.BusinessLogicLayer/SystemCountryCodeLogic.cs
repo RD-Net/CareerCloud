@@ -8,20 +8,36 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.BusinessLogicLayer
 {
-    public class SystemCountryCodeLogic 
+    public class SystemCountryCodeLogic
     {
+        private IDataRepository<SystemCountryCodePoco> _repository;
+       
         public SystemCountryCodeLogic(IDataRepository<SystemCountryCodePoco> repository)
         {
+            _repository = repository;
+        }
+        public SystemCountryCodePoco Get(String code)
+        {
+            return _repository.GetSingle(c => c.Code == code);
+        }
+        public List<SystemCountryCodePoco> GetAll()
+        {
+            IList<SystemCountryCodePoco> pocos = _repository.GetAll();
+            return pocos.ToList();
+        }
+        public void Delete(SystemCountryCodePoco[] pocos)
+        {
+            _repository.Remove(pocos);
         }
         public void Add(SystemCountryCodePoco[] pocos)
         {
             Verify(pocos);
-            Add(pocos);
+            _repository.Add(pocos);
         }
         public void Update(SystemCountryCodePoco[] pocos)
         {
             Verify(pocos);
-            Update(pocos);
+            _repository.Update(pocos);
         }
         protected void Verify(SystemCountryCodePoco[] pocos)
         {
@@ -36,11 +52,11 @@ namespace CareerCloud.BusinessLogicLayer
                 {
                     exceptions.Add(new ValidationException(901, $"Cannot be empty-{poco.Code}"));
                 }
-                if (exceptions.Count > 0)
-                {
-                    throw new AggregateException(exceptions);
-                }
-
+                
+            }
+            if (exceptions.Count > 0)
+            {
+                throw new AggregateException(exceptions);
             }
 
         }

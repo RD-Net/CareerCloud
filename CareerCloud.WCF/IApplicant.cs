@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
     [ServiceContract]
     interface IApplicant
@@ -15,7 +15,7 @@ namespace CareerCloud.WCF
         void AddApplicantEducation(ApplicantEducationPoco[] pocos);
 
         [OperationContract]
-        ApplicantEducationPoco GetSingleApplicantEducation(Guid id);
+        ApplicantEducationPoco GetSingleApplicantEducation(String id);
 
         [OperationContract]
         List<ApplicantEducationPoco> GetAllApplicantEducation();
@@ -30,7 +30,7 @@ namespace CareerCloud.WCF
         void AddApplicantJobApplication(ApplicantJobApplicationPoco[] pocos);
 
         [OperationContract]
-        ApplicantJobApplicationPoco GetSingleApplicantJobApplication(Guid id);
+        ApplicantJobApplicationPoco GetSingleApplicantJobApplication(String id);
 
         [OperationContract]
         List<ApplicantJobApplicationPoco> GetAllApplicantJobApplication();
@@ -45,7 +45,7 @@ namespace CareerCloud.WCF
         void AddApplicantProfile(ApplicantProfilePoco[] pocos);
 
         [OperationContract]
-        ApplicantProfilePoco GetSingleApplicantProfile(Guid id);
+        ApplicantProfilePoco GetSingleApplicantProfile(String id);
 
         [OperationContract]
         List<ApplicantProfilePoco> GetAllApplicantProfile();
@@ -60,7 +60,7 @@ namespace CareerCloud.WCF
         void AddApplicantResume(ApplicantResumePoco[] pocos);
 
         [OperationContract]
-        ApplicantResumePoco GetSingleApplicantResume(Guid id);
+        ApplicantResumePoco GetSingleApplicantResume(String id);
 
         [OperationContract]
         List<ApplicantResumePoco> GetAllApplicantResume();
@@ -75,7 +75,7 @@ namespace CareerCloud.WCF
         void AddApplicantSkill(ApplicantSkillPoco[] pocos);
 
         [OperationContract]
-        ApplicantSkillPoco GetSingleApplicantSkill(Guid id);
+        ApplicantSkillPoco GetSingleApplicantSkill(String id);
 
         [OperationContract]
         List<ApplicantSkillPoco> GetAllApplicantSkill();
@@ -90,7 +90,7 @@ namespace CareerCloud.WCF
         void AddApplicantWorkHistory(ApplicantWorkHistoryPoco[] pocos);
 
         [OperationContract]
-        ApplicantWorkHistoryPoco GetSingleApplicantWorkHistory(Guid id);
+        ApplicantWorkHistoryPoco GetSingleApplicantWorkHistory(String id);
 
         [OperationContract]
         List<ApplicantWorkHistoryPoco> GetAllApplicantWorkHistory();

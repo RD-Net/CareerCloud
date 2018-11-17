@@ -8,20 +8,37 @@ using System.Threading.Tasks;
 
 namespace CareerCloud.BusinessLogicLayer
 {
+
     public class SystemLanguageCodeLogic
     {
+        private IDataRepository<SystemLanguageCodePoco> _repository;
+
         public SystemLanguageCodeLogic(IDataRepository<SystemLanguageCodePoco> repository)
         {
+            _repository = repository;
+        }
+        public SystemLanguageCodePoco Get(String languageId)
+        {
+            return _repository.GetSingle(c => c.LanguageID == languageId);
+        }
+        public List<SystemLanguageCodePoco> GetAll()
+        {
+            IList<SystemLanguageCodePoco> pocos = _repository.GetAll();
+            return pocos.ToList();
+        }
+        public void Delete(SystemLanguageCodePoco[] pocos)
+        {
+            _repository.Remove(pocos);
         }
         public void Add(SystemLanguageCodePoco[] pocos)
         {
             Verify(pocos);
-            Add(pocos);
+            _repository.Add(pocos);
         }
         public void Update(SystemLanguageCodePoco[] pocos)
         {
             Verify(pocos);
-            Update(pocos);
+            _repository.Update(pocos);
         }
         protected void Verify(SystemLanguageCodePoco[] pocos)
         {

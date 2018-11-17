@@ -6,15 +6,16 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
+    [ServiceContract]
     interface ISystem
     {
         [OperationContract]
         void AddSystemCountryCode(SystemCountryCodePoco[] pocos);
 
-        [OperationContract]
-        SystemCountryCodePoco GetSingleSystemCountryCode(Guid id);
+       [OperationContract]
+        SystemCountryCodePoco GetSingleSystemCountryCode(String id);
 
         [OperationContract]
         List<SystemCountryCodePoco> GetAllSystemCountryCode();
@@ -22,14 +23,14 @@ namespace CareerCloud.WCF
         [OperationContract]
         void UpdateSystemCountryCode(SystemCountryCodePoco[] pocos);
 
-        [OperationContract]
+       [OperationContract]
         void RemoveSystemCountryCode(SystemCountryCodePoco[] pocos);
 
         [OperationContract]
         void AddSystemLanguageCode(SystemLanguageCodePoco[] pocos);
 
         [OperationContract]
-        SystemLanguageCodePoco GetSingleSystemLanguageCode(Guid id);
+       SystemLanguageCodePoco GetSingleSystemLanguageCode(String id);
 
         [OperationContract]
         List<SystemLanguageCodePoco> GetAllSystemLanguageCode();

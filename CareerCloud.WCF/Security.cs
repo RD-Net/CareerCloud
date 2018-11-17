@@ -7,7 +7,7 @@ using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
     class Security : ISecurity
     {
@@ -39,7 +39,7 @@ namespace CareerCloud.WCF
             logic.Add(pocos);
         }
 
-        public List<SecurityLoginPoco> GetAllSecurityLogin()
+       public List<SecurityLoginPoco> GetAllSecurityLogin()
         {
             EFGenericRepository<SecurityLoginPoco> repo = new EFGenericRepository<SecurityLoginPoco>(false);
             SecurityLoginLogic logic = new SecurityLoginLogic(repo);
@@ -68,32 +68,32 @@ namespace CareerCloud.WCF
             return logic.GetAll();
         }
 
-        public SecurityLoginPoco GetSingleSecurityLogin(Guid id)
+        public SecurityLoginPoco GetSingleSecurityLogin(String id)
         {
             EFGenericRepository<SecurityLoginPoco> repo = new EFGenericRepository<SecurityLoginPoco>(false);
             SecurityLoginLogic logic = new SecurityLoginLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public SecurityLoginsLogPoco GetSingleSecurityLoginsLog(Guid id)
+        public SecurityLoginsLogPoco GetSingleSecurityLoginsLog(String id)
         {
             EFGenericRepository<SecurityLoginsLogPoco> repo = new EFGenericRepository<SecurityLoginsLogPoco>(false);
             SecurityLoginsLogLogic logic = new SecurityLoginsLogLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public SecurityLoginsRolePoco GetSinglesecurityLoginsRole(Guid id)
+        public SecurityLoginsRolePoco GetSingleSecurityLoginsRole(String id)
         {
             EFGenericRepository<SecurityLoginsRolePoco> repo = new EFGenericRepository<SecurityLoginsRolePoco>(false);
             SecurityLoginsRoleLogic logic = new SecurityLoginsRoleLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
-        public SecurityRolePoco GetSinglesecurityRole(Guid id)
+        public SecurityRolePoco GetSingleSecurityRole(String id)
         {
             EFGenericRepository<SecurityRolePoco> repo = new EFGenericRepository<SecurityRolePoco>(false);
             SecurityRoleLogic logic = new SecurityRoleLogic(repo);
-            return logic.Get(id);
+            return logic.Get(Guid.Parse(id));
         }
 
         public void RemoveSecurityLogin(SecurityLoginPoco[] pocos)

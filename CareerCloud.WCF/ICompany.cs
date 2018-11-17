@@ -6,15 +6,16 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
+    [ServiceContract]
     interface ICompany
     {
         [OperationContract]
         void AddCompanyDescription(CompanyDescriptionPoco[] pocos);
 
         [OperationContract]
-        CompanyDescriptionPoco GetSingleCompanyDescription(Guid id);
+        CompanyDescriptionPoco GetSingleCompanyDescription(String id);
 
         [OperationContract]
         List<CompanyDescriptionPoco> GetAllCompanyDescription();
@@ -29,7 +30,7 @@ namespace CareerCloud.WCF
         void AddCompanyJobDescription(CompanyJobDescriptionPoco[] pocos);
 
         [OperationContract]
-        CompanyJobDescriptionPoco GetSingleCompanyJobDescription(Guid id);
+        CompanyJobDescriptionPoco GetSingleCompanyJobDescription(String id);
 
         [OperationContract]
         List<CompanyJobDescriptionPoco> GetAllCompanyJobDescription();
@@ -44,7 +45,7 @@ namespace CareerCloud.WCF
         void AddCompanyJobEducation(CompanyJobEducationPoco[] pocos);
 
         [OperationContract]
-        CompanyJobEducationPoco GetSingleCompanyJobEducation(Guid id);
+        CompanyJobEducationPoco GetSingleCompanyJobEducation(String id);
 
         [OperationContract]
         List<CompanyJobEducationPoco> GetAllCompanyJobEducation();
@@ -59,7 +60,7 @@ namespace CareerCloud.WCF
         void AddCompanyJob(CompanyJobPoco[] pocos);
 
         [OperationContract]
-        CompanyJobPoco GetSingleCompanyJob(Guid id);
+        CompanyJobPoco GetSingleCompanyJob(String id);
 
         [OperationContract]
         List<CompanyJobPoco> GetAllCompanyJob();
@@ -74,7 +75,7 @@ namespace CareerCloud.WCF
         void AddCompanyJobSkill(CompanyJobSkillPoco[] pocos);
 
         [OperationContract]
-        CompanyJobSkillPoco GetSingleCompanyJobSkill(Guid id);
+        CompanyJobSkillPoco GetSingleCompanyJobSkill(String id);
 
         [OperationContract]
         List<CompanyJobSkillPoco> GetAllCompanyJobSkill();
@@ -89,7 +90,7 @@ namespace CareerCloud.WCF
         void AddCompanyLocation(CompanyLocationPoco[] pocos);
 
         [OperationContract]
-        CompanyLocationPoco GetSingleCompanyLocation(Guid id);
+        CompanyLocationPoco GetSingleCompanyLocation(String id);
 
         [OperationContract]
         List<CompanyLocationPoco> GetAllCompanyLocation();
@@ -104,7 +105,7 @@ namespace CareerCloud.WCF
         void AddCompanyProfile(CompanyProfilePoco[] pocos);
 
         [OperationContract]
-        CompanyProfilePoco GetSingleCompanyProfile(Guid id);
+        CompanyProfilePoco GetSingleCompanyProfile(String id);
 
         [OperationContract]
         List<CompanyProfilePoco> GetAllCompanyProfile();
@@ -114,15 +115,6 @@ namespace CareerCloud.WCF
 
         [OperationContract]
         void RemoveCompanyProfile(CompanyProfilePoco[] pocos);
-
-
-
-
-
-
-
-
-
-
+        
     }
 }

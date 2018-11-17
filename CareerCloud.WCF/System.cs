@@ -7,7 +7,7 @@ using CareerCloud.BusinessLogicLayer;
 using CareerCloud.EntityFrameworkDataAccess;
 using CareerCloud.Pocos;
 
-namespace CareerCloud.WCF
+namespace CareerCloud.Wcf
 {
     class System : ISystem
     {
@@ -25,7 +25,48 @@ namespace CareerCloud.WCF
             logic.Add(pocos);
         }
 
-      
+        public List<SystemCountryCodePoco> GetAllSystemCountryCode()
+        {
+            EFGenericRepository<SystemCountryCodePoco> repo = new EFGenericRepository<SystemCountryCodePoco>(false);
+            SystemCountryCodeLogic logic = new SystemCountryCodeLogic(repo);
+            return logic.GetAll();
+        }
+
+        public List<SystemLanguageCodePoco> GetAllSystemLanguageCode()
+        {
+            EFGenericRepository<SystemLanguageCodePoco> repo = new EFGenericRepository<SystemLanguageCodePoco>(false);
+            SystemLanguageCodeLogic logic = new SystemLanguageCodeLogic(repo);
+            return logic.GetAll();
+        }
+
+        public SystemCountryCodePoco GetSingleSystemCountryCode(String code)
+        {
+            EFGenericRepository<SystemCountryCodePoco> repo = new EFGenericRepository<SystemCountryCodePoco>(false);
+            SystemCountryCodeLogic logic = new SystemCountryCodeLogic(repo);
+            return logic.Get(code);
+        }
+
+        public SystemLanguageCodePoco GetSingleSystemLanguageCode(String code)
+        {
+            EFGenericRepository<SystemLanguageCodePoco> repo = new EFGenericRepository<SystemLanguageCodePoco>(false);
+            SystemLanguageCodeLogic logic = new SystemLanguageCodeLogic(repo);
+            return logic.Get(code);
+        }
+
+        public void RemoveSystemCountryCode(SystemCountryCodePoco[] pocos)
+        {
+            EFGenericRepository<SystemCountryCodePoco> repo = new EFGenericRepository<SystemCountryCodePoco>(false);
+            SystemCountryCodeLogic logic = new SystemCountryCodeLogic(repo);
+            logic.Delete(pocos);
+        }
+
+        public void RemoveSystemLanguageCode(SystemLanguageCodePoco[] pocos)
+        {
+            EFGenericRepository<SystemLanguageCodePoco> repo = new EFGenericRepository<SystemLanguageCodePoco>(false);
+            SystemLanguageCodeLogic logic = new SystemLanguageCodeLogic(repo);
+            logic.Delete(pocos);
+        }
+
         public void UpdateSystemCountryCode(SystemCountryCodePoco[] pocos)
         {
             EFGenericRepository<SystemCountryCodePoco> repo = new EFGenericRepository<SystemCountryCodePoco>(false);
